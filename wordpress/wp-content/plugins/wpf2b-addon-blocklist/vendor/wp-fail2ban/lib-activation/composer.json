@@ -1,0 +1,21 @@
+{
+    "name": "wp-fail2ban/lib-activation",
+    "description": "Activation library for WP fail2ban Add-ons",
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Charles Lecklider",
+            "email": "wordpress@invis.net",
+			"homepage": "https://invis.net/",
+			"role": "Developer"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+		"phpdocumentor/phpdocumentor": "2.*",
+		"phpunit/phpunit": "9.*",
+		"squizlabs/php_codesniffer": "3.*",
+		"10up/wp_mock": "^0.4.2",
+		"phpmd/phpmd": "^2.8"
+    }
+}
