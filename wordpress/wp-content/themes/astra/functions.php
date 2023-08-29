@@ -1,7 +1,7 @@
 <?php
 /**
  * Astra functions and definitions
- *
+ *UPDATED
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package Astra
