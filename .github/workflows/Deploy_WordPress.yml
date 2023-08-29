@@ -33,16 +33,19 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Set up environment variables
-        env:
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-        run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> .env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
-  
       - name: Checkout repository
         uses: actions/checkout@main
 
+      # - name: Set up environment variables
+      #   env:
+      #     MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      #     MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+      #     MYSQL_USER: ${{ secrets.MYSQL_USER }}
+      #   run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> .env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
+     
+      - name: Set up environment variables
+        run: echo "MYSQL_PASSWORD=<span class="math-inline">\{MYSQL\_PASSWORD\}" \>\> \.env && echo "MYSQL\_ROOT\_PASSWORD\=</span>{MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
+      
       - name: Run Build
         run: docker-compose up -d
 
