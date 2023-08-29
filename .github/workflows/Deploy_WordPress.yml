@@ -45,9 +45,9 @@ jobs:
      
       # - name: Set up environment variables
       #   run: echo "MYSQL_PASSWORD=<span class="math-inline">\{MYSQL\_PASSWORD\}" \>\> \.env && echo "MYSQL\_ROOT\_PASSWORD\=</span>{MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
-      - name: Setup Environment
-        run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_USER=${MYSQL_USER}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env
+      # - name: Setup Environment
+      #   run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_USER=${MYSQL_USER}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env
       - name: Run Build
-        run: docker-compose up -d -f /home/asit/wordpress/.env
+        run: cd /home/asit/wordpress && docker-compose up -d
 
       
