@@ -39,4 +39,4 @@ jobs:
       - name: Run Build
         run: |
           cd $GITHUB_WORKSPACE
-          docker-compose up -d
+          sudo docker-compose up -d
