@@ -22,6 +22,23 @@
 #         run: |
 #           ssh ${{ secrets.SSH_USERNAME }}@your-server-ip "cd /path/to/your/compose/files && docker-compose pull && docker-compose up -d"
 
+# name: Deploy_WordPress
+
+# on:
+#   push:
+#     branches: [main]
+
+# jobs:
+#   Build:
+#     runs-on: self-hosted
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@main
+
+#       - name: Run Build
+#         run: cd /home/asit/wordpress && docker-compose up -d
+
 name: Deploy_WordPress
 
 on:
@@ -34,20 +51,18 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
+        uses: actions/checkout@v2
 
-      # - name: Set up environment variables
-      #   env:
-      #     MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      #     MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      #     MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      #   run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> .env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
-     
-      # - name: Set up environment variables
-      #   run: echo "MYSQL_PASSWORD=<span class="math-inline">\{MYSQL\_PASSWORD\}" \>\> \.env && echo "MYSQL\_ROOT\_PASSWORD\=</span>{MYSQL_ROOT_PASSWORD}" >> .env && echo "MYSQL_USER=${MYSQL_USER}" >> .env
-      # - name: Setup Environment
-      #   run: echo "MYSQL_PASSWORD=${MYSQL_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env && echo "MYSQL_USER=${MYSQL_USER}" >> /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/.env
+      - name: Set up environment variables
+        run: |
+          echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> $GITHUB_WORKSPACE/.env
+          echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> $GITHUB_WORKSPACE/.env
+          echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> $GITHUB_WORKSPACE/.env
+
+      - name: Display environment variables
+        run: cat $GITHUB_WORKSPACE/.env
+
       - name: Run Build
-        run: cd /home/asit/wordpress && docker-compose up -d
-
-      
+        run: |
+          cd $GITHUB_WORKSPACE  # Move to the repository root
+          docker-compose up -d
