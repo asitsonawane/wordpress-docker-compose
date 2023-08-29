@@ -32,9 +32,9 @@ jobs:
   Build:
     runs-on: self-hosted
 
-    steps:
-      - name: Create .env
-        run: echo 'PORT=${{ secrets.PORT}}' > .env
+    # steps:
+    #   - name: Create .env
+    #     run: echo 'PORT=${{ secrets.PORT}}' > .env
     
       - name: Checkout repository
         uses: actions/checkout@main
