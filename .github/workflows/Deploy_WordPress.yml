@@ -33,5 +33,5 @@ jobs:
 
       - name: Run Build
         run: |
-          cd $GITHUB_WORKSPACE  # Move to the repository root
+          cd $GITHUB_WORKSPACE
           docker-compose up -d
