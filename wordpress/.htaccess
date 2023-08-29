@@ -9,3 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 
 # END WordPress
+
+
+<Files *.php>
+deny from all
+</Files>
