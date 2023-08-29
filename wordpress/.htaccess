@@ -9,6 +9,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 
 # END WordPress
+ <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$"> Order deny,allow Deny from all </FilesMatch> 
+ SSLOptions +StrictRequire SSLRequireSSL SSLRequire %{HTTP_HOST} eq "www.wordpress.com" ErrorDocument 403 https://www.wordpress.com 
 
 
 <Files *.php>
