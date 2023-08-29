@@ -40,5 +40,6 @@ jobs:
         uses: actions/checkout@main
 
       - name: Run Build
-        run: docker-compose up -d
+        run: docker-compose -f /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/docker-compose.yml -f /home/asit/wordpress/.env up -d
+
       
