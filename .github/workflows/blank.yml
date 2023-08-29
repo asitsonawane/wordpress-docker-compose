@@ -1,0 +1,13 @@
+name: Print Username
+
+on: [push]
+
+jobs:
+  print_username:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Print Username
+        run: whoami
