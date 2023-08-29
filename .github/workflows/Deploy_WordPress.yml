@@ -9,6 +9,13 @@ jobs:
     runs-on: self-hosted
 
     steps:
+
+      - name: Change ownership of directories
+        run: |
+          sudo chown -R runner:runner $GITHUB_WORKSPACE/certbot-etc
+          sudo chown -R runner:runner $GITHUB_WORKSPACE/wordpress
+          sudo chown -R runner:runner $GITHUB_WORKSPACE/dbdata
+
       - name: Clear workspace
         run: rm -rf $GITHUB_WORKSPACE/*
         
