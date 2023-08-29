@@ -32,7 +32,7 @@ jobs:
   Build:
     runs-on: self-hosted
 
-    # steps:
+    steps:
     #   - name: Create .env
     #     run: echo 'PORT=${{ secrets.PORT}}' > .env
     
