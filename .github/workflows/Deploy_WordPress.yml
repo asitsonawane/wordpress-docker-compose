@@ -50,6 +50,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: User
+        run: whoim
+        
       - name: Checkout repository
         uses: actions/checkout@main
 
