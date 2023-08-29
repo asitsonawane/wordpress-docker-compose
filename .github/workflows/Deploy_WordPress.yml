@@ -22,7 +22,7 @@ jobs:
       - name: Checkout repository
         run: |
             cd /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/certbot-etc
-            sudo rmd -r renewal-hooks
+            sudo rm -r renewal-hooks
         
       - name: Checkout repository
         uses: actions/checkout@main
