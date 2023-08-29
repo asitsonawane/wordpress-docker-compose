@@ -20,7 +20,7 @@ jobs:
       #   run: rm -rf $GITHUB_WORKSPACE/*
 
       - name: Checkout repository
-        uses: sudo rmdir /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/certbot-etc/renewal-hooks
+        run: sudo rmdir /home/asit/wordpress/actions-runner/_work/wordpress-docker-compose/wordpress-docker-compose/certbot-etc/renewal-hooks
         
       - name: Checkout repository
         uses: actions/checkout@main
