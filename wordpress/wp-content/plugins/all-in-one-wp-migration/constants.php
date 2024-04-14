@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '7.78' );
+define( 'AI1WM_VERSION', '7.81' );
 
 // ===============
 // = Plugin Name =
@@ -277,6 +277,11 @@ define( 'AI1WM_WP_ENGINE_SECURITY_AUDITOR_NAME', 'wpengine-security-auditor.php'
 // ===========================
 define( 'AI1WM_WP_CERBER_SECURITY_NAME', 'aaa-wp-cerber.php' );
 
+// ===============================
+// = W3TC config file to exclude =
+// ===============================
+define( 'AI1WM_W3TC_CONFIG_FILE', 'w3tc-config' . DIRECTORY_SEPARATOR . 'master.php' );
+
 // ==================
 // = Error Log Name =
 // ==================
@@ -296,6 +301,11 @@ define( 'AI1WM_AUTH_USER', 'ai1wm_auth_user' );
 // = Auth Password =
 // =================
 define( 'AI1WM_AUTH_PASSWORD', 'ai1wm_auth_password' );
+
+// ===============
+// = Auth Header =
+// ===============
+define( 'AI1WM_AUTH_HEADER', 'ai1wm_auth_header' );
 
 // ============
 // = Site URL =

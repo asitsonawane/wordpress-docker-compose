@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -154,6 +154,13 @@ abstract class Ai1wm_Database {
 	 * @var array
 	 */
 	protected $atomic_tables = array();
+
+	/**
+	 * List all tables that should not be populated on import
+	 *
+	 * @var array
+	 */
+	protected $empty_tables = array();
 
 	/**
 	 * Visual Composer
@@ -538,6 +545,27 @@ abstract class Ai1wm_Database {
 	 */
 	public function get_atomic_tables() {
 		return $this->atomic_tables;
+	}
+
+	/**
+	 * Set empty tables
+	 *
+	 * @param  array  $tables List of tables
+	 * @return object
+	 */
+	public function set_empty_tables( $tables ) {
+		$this->empty_tables = $tables;
+
+		return $this;
+	}
+
+	/**
+	 * Get empty tables
+	 *
+	 * @return array
+	 */
+	public function get_empty_tables() {
+		return $this->empty_tables;
 	}
 
 	/**
@@ -1076,11 +1104,11 @@ abstract class Ai1wm_Database {
 					// Check max allowed packet
 					if ( strlen( $query ) <= $max_allowed_packet ) {
 
-						// Skip cache query
-						if ( ! $this->is_cache_query( $query ) ) {
+						// Replace table prefixes
+						$query = $this->replace_table_prefixes( $query );
 
-							// Replace table prefixes
-							$query = $this->replace_table_prefixes( $query );
+						// Skip table query
+						if ( $this->should_ignore_query( $query ) === false ) {
 
 							// Replace table collations
 							$query = $this->replace_table_collations( $query );
@@ -1821,24 +1849,32 @@ abstract class Ai1wm_Database {
 	}
 
 	/**
-	 * Check whether input is cache query
+	 * Should ignore query on import?
 	 *
 	 * @param  string  $input SQL statement
 	 * @return boolean
 	 */
-	public function is_cache_query( $input ) {
-		$cache = false;
+	public function should_ignore_query( $input ) {
+		$ignore = false;
 
-		// Skip cache based on table query
+		// Ignore query based on table query
 		switch ( true ) {
 			case $this->is_transient_query( $input ):
 			case $this->is_site_transient_query( $input ):
 			case $this->is_wc_session_query( $input ):
-				$cache = true;
+				$ignore = true;
 				break;
+
+			default:
+				foreach ( $this->get_empty_tables() as $table_name ) {
+					if ( $this->is_insert_into_query( $input, $table_name ) ) {
+						$ignore = true;
+						break;
+					}
+				}
 		}
 
-		return $cache;
+		return $ignore;
 	}
 
 	/**

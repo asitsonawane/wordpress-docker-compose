@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,7 +106,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<?php _e( 'Dropbox Storage', AI1WM_PLUGIN_NAME ); ?> <a href="https://servmask.com/products/dropbox-extension?utm_campaign=schedules&utm_source=wordpress&utm_medium=textlink" target="_blank"><?php _e( 'Enable this feature', AI1WM_PLUGIN_NAME ); ?></a>
 					</h2>
 					<img src="<?php echo wp_make_link_relative( AI1WM_URL ); ?>/lib/view/assets/img/schedules/dropbox-storage.png?v=<?php echo AI1WM_VERSION; ?>" />
-					<p>Leverage the simplicity of Dropbox for your backup needs. Direct your scheduled backups to be stored in Dropbox. It's secure, straightforward, and keeps your backups at your fingertips.</p>
+					<p><?php _e( 'Leverage the simplicity of Dropbox for your backup needs. Direct your scheduled backups to be stored in Dropbox. It\'s secure, straightforward, and keeps your backups at your fingertips.', AI1WM_PLUGIN_NAME ); ?></p>
 				</div>
 			</article>
 			<article>

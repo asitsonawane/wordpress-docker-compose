@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -886,6 +886,9 @@ class Ai1wm_Import_Database {
 		// Get HTTP password
 		$auth_password = get_option( AI1WM_AUTH_PASSWORD );
 
+		// Get auth header
+		$auth_header = get_option( AI1WM_AUTH_HEADER );
+
 		// Get Uploads Path
 		$uploads_path = get_option( AI1WM_UPLOADS_PATH );
 
@@ -945,11 +948,7 @@ class Ai1wm_Import_Database {
 
 		// Get database client
 		if ( is_null( $mysql ) ) {
-			if ( empty( $wpdb->use_mysqli ) ) {
-				$mysql = new Ai1wm_Database_Mysql( $wpdb );
-			} else {
-				$mysql = new Ai1wm_Database_Mysqli( $wpdb );
-			}
+			$mysql = Ai1wm_Database_Utility::create_client();
 		}
 
 		// Set database options
@@ -960,8 +959,11 @@ class Ai1wm_Import_Database {
 			->set_old_replace_raw_values( $old_replace_raw_values )
 			->set_new_replace_raw_values( $new_replace_raw_values );
 
-		// Set atomic tables (do not stop the current request for all listed tables if timeout has been exceeded)
+		// Set atomic tables (do not stop current request for all listed tables if timeout has been exceeded)
 		$mysql->set_atomic_tables( array( ai1wm_table_prefix() . 'options' ) );
+
+		// Set empty tables (do not populate current data for all listed tables)
+		$mysql->set_empty_tables( array( ai1wm_table_prefix() . 'eum_logs' ) );
 
 		// Set Visual Composer
 		$mysql->set_visual_composer( ai1wm_validate_plugin_basename( 'js_composer/js_composer.php' ) );
@@ -1037,6 +1039,9 @@ class Ai1wm_Import_Database {
 
 		// Set the new HTTP password
 		update_option( AI1WM_AUTH_PASSWORD, $auth_password );
+
+		// Set the new auth header
+		update_option( AI1WM_AUTH_HEADER, $auth_header );
 
 		// Set the new Uploads Path
 		update_option( AI1WM_UPLOADS_PATH, $uploads_path );

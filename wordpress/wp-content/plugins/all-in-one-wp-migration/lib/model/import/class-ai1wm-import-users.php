@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,8 @@ class Ai1wm_Import_Users {
 
 			// Close handle
 			ai1wm_close( $handle );
+
+			ai1wm_populate_roles();
 
 			// Set WordPress super admins
 			if ( isset( $multisite['Admins'] ) && ( $admins = $multisite['Admins'] ) ) {

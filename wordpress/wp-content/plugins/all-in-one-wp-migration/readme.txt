@@ -2,9 +2,9 @@
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: move, transfer, copy, migrate, backup, clone, restore, db migration, wordpress migration, website migration, database export, database import, apoyo, sauvegarde, di riserva, バックアップ
 Requires at least: 3.3
-Tested up to: 6.3
+Tested up to: 6.5
 Requires PHP: 5.3
-Stable tag: 7.78
+Stable tag: 7.81
 License: GPLv2 or later
 
 Move, transfer, copy, migrate, and backup a site with 1-click. Quick, easy, and reliable.
@@ -24,7 +24,7 @@ Follow these three simple steps, and your site will be live at its new location 
 
 One feature that makes All-in-One WP Migration widely loved (to the tune of over 6,000 5-star user reviews) is that the technical requirements for installing the plugin are simple.
 
-If you have WordPress version between 3.3 and 6.0 and PHP version between 5.3 and 8.2.6, you are good to go. All-in-One WP Migration also supports all versions of MySQL and MariaDB.
+If you have WordPress version between 3.3 and 6.4.2 and PHP version between 5.3 and 8.3, you are good to go. All-in-One WP Migration also supports all versions of MySQL and MariaDB.
 
 **Features Spotlight:**
 
@@ -87,6 +87,31 @@ All-in-One WP Migration is in full compliance with General Data Protection Regul
 See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-policy/946881).
 
 == Changelog ==
+= 7.81 =
+**Added**
+
+* Reset Hub Page: Introducing a new reset hub page, providing users with powerful reset tools for efficient site management. This feature allows for easier resets of WordPress environments, facilitating smoother development and testing workflows.
+
+**Improved**
+
+* Better W3TC Support
+* PHP Compatibility Checks: Display a warning notification, when you move/restore your site to a different PHP version.
+
+= 7.80 =
+**Added**
+
+* Support for update-services plugin
+* Domain name conversion to dashes from dots in the backup name for improved hosting providers compatibility
+
+**Improved**
+
+* Better support for Multisite to Standalone and Standalone to Multisite exports and imports, streamlining the migration process
+
+= 7.79 =
+**Added**
+
+* Support for WordPress v6.4
+
 = 7.78 =
 **Added**
 
@@ -101,17 +126,3 @@ See our [GDPR Compliant Privacy Policy here](https://www.iubenda.com/privacy-pol
 **Fixed**
 
 * Removed the [beta] label from advanced settings
-
-= 7.75 =
-**Fixed**
-
-* Custom backups path on database import step
-
-= 7.74 =
-**Fixed**
-
-* Resolved an ongoing issue with the compatibility of the plugin with servers running Imunify360. The file "wp-content/plugins/all-in-one-wp-migration/functions.php" was being falsely flagged and deleted due to a detection error. This update includes small changes to the "functions.php" file to modify its checksum and prevent the false flag by Imunify360
-
-**Notes**
-
-* Imunify360 has updated its signatures, which should prevent this issue from occurring on servers running the updated version. However, this plugin update serves as an additional measure to ensure that the issue is resolved for all users

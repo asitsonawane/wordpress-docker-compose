@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Ai1wm_Export_Enumerate_Tables {
 
 	public static function execute( $params, Ai1wm_Database $mysql = null ) {
-		global $wpdb;
-
 		// Set exclude database
 		if ( isset( $params['options']['no_database'] ) ) {
 			return $params;
@@ -49,11 +47,7 @@ class Ai1wm_Export_Enumerate_Tables {
 
 		// Get database client
 		if ( is_null( $mysql ) ) {
-			if ( empty( $wpdb->use_mysqli ) ) {
-				$mysql = new Ai1wm_Database_Mysql( $wpdb );
-			} else {
-				$mysql = new Ai1wm_Database_Mysqli( $wpdb );
-			}
+			$mysql = Ai1wm_Database_Utility::create_client();
 		}
 
 		// Include table prefixes

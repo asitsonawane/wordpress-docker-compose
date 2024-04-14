@@ -1,3 +1,10 @@
+= 7.75 =
+* Custom backups path on database import step
+
+= 7.74 =
+* Resolved an ongoing issue with the compatibility of the plugin with servers running Imunify360. The file "wp-content/plugins/all-in-one-wp-migration/functions.php" was being falsely flagged and deleted due to a detection error. This update includes small changes to the "functions.php" file to modify its checksum and prevent the false flag by Imunify360
+* Imunify360 has updated its signatures, which should prevent this issue from occurring on servers running the updated version. However, this plugin update serves as an additional measure to ensure that the issue is resolved for all users
+
 = 7.73 =
 * Better support for PHP 8.1
 

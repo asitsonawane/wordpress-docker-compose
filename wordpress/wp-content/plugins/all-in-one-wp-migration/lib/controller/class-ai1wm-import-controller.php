@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -270,16 +270,6 @@ class Ai1wm_Import_Controller {
 
 	public static function pro() {
 		return Ai1wm_Template::get_content( 'import/pro' );
-	}
-
-	public static function http_import_headers( $headers = array() ) {
-		if ( ( $user = get_option( AI1WM_AUTH_USER ) ) && ( $password = get_option( AI1WM_AUTH_PASSWORD ) ) ) {
-			if ( ( $hash = base64_encode( sprintf( '%s:%s', $user, $password ) ) ) ) {
-				$headers['Authorization'] = sprintf( 'Basic %s', $hash );
-			}
-		}
-
-		return $headers;
 	}
 
 	public static function max_chunk_size() {

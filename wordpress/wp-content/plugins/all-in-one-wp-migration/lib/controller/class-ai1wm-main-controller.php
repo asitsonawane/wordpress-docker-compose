@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -129,6 +129,9 @@ class Ai1wm_Main_Controller {
 		// Enqueue schedules scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_schedules_scripts_and_styles' ), 5 );
 
+		// Enqueue reset scripts and styles
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_reset_scripts_and_styles' ), 5 );
+
 		// Enqueue updater scripts and styles
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_updater_scripts_and_styles' ), 5 );
 	}
@@ -231,10 +234,13 @@ class Ai1wm_Main_Controller {
 		add_action( 'wp_maybe_auto_update', 'Ai1wm_Updater_Controller::check_for_updates' );
 
 		// Add HTTP export headers
-		add_filter( 'ai1wm_http_export_headers', 'Ai1wm_Export_Controller::http_export_headers' );
+		add_filter( 'ai1wm_http_export_headers', 'ai1wm_auth_headers' );
 
 		// Add HTTP import headers
-		add_filter( 'ai1wm_http_import_headers', 'Ai1wm_Import_Controller::http_import_headers' );
+		add_filter( 'ai1wm_http_import_headers', 'ai1wm_auth_headers' );
+
+		// Add HTTP reset headers
+		add_filter( 'ai1wm_http_reset_headers', 'ai1wm_auth_headers' );
 
 		// Add chunk size limit
 		add_filter( 'ai1wm_max_chunk_size', 'Ai1wm_Import_Controller::max_chunk_size' );
@@ -662,11 +668,20 @@ class Ai1wm_Main_Controller {
 		);
 
 		if ( ! defined( 'AI1WMVE_PATH' ) ) {
+			// Sub-level Reset
+			add_submenu_page(
+				'ai1wm_export',
+				__( 'Reset Hub', AI1WM_PLUGIN_NAME ),
+				__( 'Reset Hub', AI1WM_PLUGIN_NAME ) . Ai1wm_Template::get_content( 'main/premium-badge' ),
+				'export',
+				'ai1wm_reset',
+				'Ai1wm_Reset_Controller::index'
+			);
 			// Sub-level Schedules
 			add_submenu_page(
 				'ai1wm_export',
 				__( 'Schedules', AI1WM_PLUGIN_NAME ),
-				__( 'Schedules', AI1WM_PLUGIN_NAME ),
+				__( 'Schedules', AI1WM_PLUGIN_NAME ) . Ai1wm_Template::get_content( 'main/premium-badge' ),
 				'export',
 				'ai1wm_schedules',
 				'Ai1wm_Schedules_Controller::index'
@@ -1133,7 +1148,7 @@ class Ai1wm_Main_Controller {
 	}
 
 	/**
-	 * Enqueue scripts and styles for What's new Controller
+	 * Enqueue scripts and styles for Schedules page
 	 *
 	 * @param  string $hook Hook suffix
 	 * @return void
@@ -1167,6 +1182,40 @@ class Ai1wm_Main_Controller {
 		);
 	}
 
+	/**
+	 * Enqueue scripts and styles for Reset page
+	 *
+	 * @param  string $hook Hook suffix
+	 * @return void
+	 */
+	public function enqueue_reset_scripts_and_styles( $hook ) {
+		if ( stripos( 'all-in-one-wp-migration_page_ai1wm_reset', $hook ) === false ) {
+			return;
+		}
+
+		// We don't want heartbeat to occur when restoring
+		wp_deregister_script( 'heartbeat' );
+
+		// We don't want auth check for monitoring whether the user is still logged in
+		remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
+
+		if ( is_rtl() ) {
+			wp_enqueue_style(
+				'ai1wm_reset',
+				Ai1wm_Template::asset_link( 'css/reset.min.rtl.css' )
+			);
+		} else {
+			wp_enqueue_style(
+				'ai1wm_reset',
+				Ai1wm_Template::asset_link( 'css/reset.min.css' )
+			);
+		}
+
+		wp_enqueue_script(
+			'ai1wm_reset',
+			Ai1wm_Template::asset_link( 'javascript/reset.min.js' )
+		);
+	}
 
 	/**
 	 * Enqueue scripts and styles for Updater Controller
@@ -1237,16 +1286,22 @@ class Ai1wm_Main_Controller {
 	 * @return void
 	 */
 	public function init() {
+		$user     = false;
+		$password = false;
 		// Set username
 		if ( isset( $_SERVER['PHP_AUTH_USER'] ) ) {
-			update_option( AI1WM_AUTH_USER, $_SERVER['PHP_AUTH_USER'] );
+			$user = $_SERVER['PHP_AUTH_USER'];
 		} elseif ( isset( $_SERVER['REMOTE_USER'] ) ) {
-			update_option( AI1WM_AUTH_USER, $_SERVER['REMOTE_USER'] );
+			$user = $_SERVER['REMOTE_USER'];
 		}
 
 		// Set password
 		if ( isset( $_SERVER['PHP_AUTH_PW'] ) ) {
-			update_option( AI1WM_AUTH_PASSWORD, $_SERVER['PHP_AUTH_PW'] );
+			$password = $_SERVER['PHP_AUTH_PW'];
+		}
+
+		if ( $user !== false && $password !== false ) {
+			update_option( AI1WM_AUTH_HEADER, base64_encode( sprintf( '%s:%s', $user, $password ) ) );
 		}
 
 		// Check for updates

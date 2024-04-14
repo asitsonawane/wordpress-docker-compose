@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2014-2020 ServMask Inc.
+ * Copyright (C) 2014-2023 ServMask Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -82,6 +82,7 @@ class Ai1wm_Import_Done {
 					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 					ai1wm_discover_plugin_basename( 'wpide/WPide.php' ),
 					ai1wm_discover_plugin_basename( 'page-optimize/page-optimize.php' ),
+					ai1wm_discover_plugin_basename( 'update-services/update-services.php' ),
 				)
 			);
 
@@ -188,6 +189,7 @@ class Ai1wm_Import_Done {
 						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 						ai1wm_discover_plugin_basename( 'wpide/WPide.php' ),
 						ai1wm_discover_plugin_basename( 'page-optimize/page-optimize.php' ),
+						ai1wm_discover_plugin_basename( 'update-services/update-services.php' ),
 					)
 				);
 
@@ -297,6 +299,7 @@ class Ai1wm_Import_Done {
 						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 						ai1wm_discover_plugin_basename( 'wpide/WPide.php' ),
 						ai1wm_discover_plugin_basename( 'page-optimize/page-optimize.php' ),
+						ai1wm_discover_plugin_basename( 'update-services/update-services.php' ),
 					)
 				);
 

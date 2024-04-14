@@ -8,13 +8,20 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 
+<IfModule mod_php.c>
+  php_value upload_max_filesize 128M
+  php_value post_max_size 128M
+  php_value max_execution_time 300
+  php_value max_input_time 300
+</IfModule>
+
 # END WordPress
  <FilesMatch "^.*(error_log|wp-config\.php|php.ini|\.[hH][tT][aApP].*)$"> Order deny,allow Deny from all </FilesMatch> 
  SSLOptions +StrictRequire SSLRequireSSL SSLRequire %{HTTP_HOST} eq "www.wordpress.com" ErrorDocument 403 https://www.wordpress.com 
 
 
-<Files *.php>
-deny from all
-</Files>
+# <Files *.php>
+# deny from all
+# </Files>
 Options -Indexes
 
