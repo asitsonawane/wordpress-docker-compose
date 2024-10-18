@@ -1,5 +1,4 @@
 name: Deploy_WordPress
-
 on:
   push:
     branches: [main]
